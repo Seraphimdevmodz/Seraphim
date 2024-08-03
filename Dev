@@ -1,89 +1,50 @@
-local redzlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RedzLibV5/main/Source.Lua"))()
-local Window = redzlib:MakeWindow({
-  Title = "redz Hub : Blox Fruits",
-  SubTitle = "by redz9999",
-  SaveFolder = "redz Hub | Blox Fruits.lua"
-})
-        ------- Specials Mobs --------
-        Elites = {
-            "Deandre [Lv. 1750]",
-            "Urban [Lv. 1750]",
-            "Diablo [Lv. 1750]"
-        }
-        BoneMobs = {
-            "Reborn Skeleton [Lv. 1975]",
-            "Living Zombie [Lv. 2000]",
-            "Demonic Soul [Lv. 2025]",
-            "Posessed Mummy [Lv. 2050]"
-        }
-        BossFarmEx = {}
-        for i, v in pairs(game.Workspace.Enemies:GetChildren()) do
-            if string.find(v.Name, "Raid Boss") then
-                table.insert(BossFarmEx, v.Name)
-            end
-        end
-        for i, v in pairs(game.ReplicatedStorage:GetChildren()) do
-            if string.find(v.Name, "Raid Boss") then
-                table.insert(BossFarmEx, v.Name)
-            end
-        end
-        ------------------
-        RandomText = {
-            "The Simulation is who we really are?",
-            "It fantasy",
-            "Live for your life",
-            "Cause i never surrender",
-            "their reflection in your eyes",
-            "make me wanna sacrifice",
-            "Wont end it, this fantasy",
-            "Love it",
-            "I'll waitting, waitting",
-            "and if ever feel lonely, come see me",
-            "Cause i Need someone to belive in love"
-        }
-        randomtexte = RandomText[math.random(1, #RandomText)]
-        ------- Joining Team ---- 
-        function Join(v2) 
-            v2 = tostring(v2) or "Pirates"
-            v2 = string.find(v2,"Marine") and "Marines" or "Pirates"
-            for i, v in pairs(
-                getconnections(
-                    game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container[v2].Frame.TextButton.Activated
-                )
-            ) do
-                v.Function()
-            end
-        end
-        repeat
-            pcall(
-                function()
-                    task.wait()
-                    if game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("Main"):FindFirstChild("ChooseTeam") then 
-                        Config["Team"] = Config["Team"] or "Pirates"
-                        Join(Config["Team"])
-                    end
-                end
-            )
-        until game.Players.LocalPlayer.Team ~= nil
-
-        DefaultTab = Window:NewTab({Title = "Default", Icon = getRandomIcon()})
-        FarmTab = Window:NewTab({Title = "Farm", Icon = getRandomIcon()}) 
-        ServerTab = Window:NewTab({Title = "Server & Info", Icon = getRandomIcon()})
-        V4Tab = Window:NewTab({Title = "Race", Icon = getRandomIcon()})
-        PlRTAB = Window:NewTab({Title = "Local Player", Icon = getRandomIcon()}) 
-        WeaponTab = Window:NewTab({Title = "Weapon", Icon = getRandomIcon()}) 
-        ShopTab = Window:NewTab({Title = "Shop",Icon = getRandomIcon()})
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Seraphim", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+--tab
+  local Tab = Window:MakeTab({
+        Name = "Default",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+      local Tab = Window:MakeTab({
+        Name = "Farm",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+        local Tab = Window:MakeTab({
+        Name = "Server & Info",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+       local Tab = Window:MakeTab({
+        Name = "Race",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+        local Tab = Window:MakeTab({
+        Name = "Tab 1",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+        local Tab = Window:MakeTab({
+        Name = "Local Player",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+        local Tab = Window:MakeTab({
+        Name = "Shop",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
         RaidTab = Window:NewTab({Title = "Fruits & Raid", Icon = getRandomIcon()})
         if not Sea1 then 
-            SeaBeastTab = Window:NewTab({Title = "Sea Beast",Icon = getRandomIcon()})
+            local Tab = Window:MakeTab({
+        Name = "Sea Beast",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
         end 
-        SettingTab = Window:NewTab({Title = "Setting",Icon = getRandomIcon()})
-        function CreateUiNotify(cf)
-            newtitle = cf.Title or "Tsuo Hub"
-            newcontent = cf.Content or "Nothing"
-            newduration = cf.Duration or 10
-            newsubcontent = cf.SubContent or ""
-            Fluent:Notify(
+        local Tab = Window:MakeTab({
+        Name = "Setting",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+       OrionLib:MakeNotification({
+        Name = "Tsuo Hub!",
+        Content = "Notification content... what will it say??",
+        Image = "rbxassetid://4483345998",
+        Time = 5
                 {
                     Title = newtitle,
                     Content = newcontent,
@@ -8535,9 +8496,6 @@ local Window = redzlib:MakeWindow({
         
         loadstring(game:HttpGet("https://raw.githubusercontent.com/memaybeohub/Function-Scripts/main/FastAttackLoader.lua"))()
         -- Final Load --
-        LoadedUiHub = true
-        Window:SelectTab(1)
-        Fluent:Notify(
-            {                
-        )     
-end
+
+end)
+
