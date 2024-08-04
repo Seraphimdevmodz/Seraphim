@@ -1,50 +1,322 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Seraphim", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
---tab
-  local Tab = Window:MakeTab({
-        Name = "Default",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-      local Tab = Window:MakeTab({
-        Name = "Farm",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-        local Tab = Window:MakeTab({
-        Name = "Server & Info",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-       local Tab = Window:MakeTab({
-        Name = "Race",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-        local Tab = Window:MakeTab({
-        Name = "Tab 1",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-        local Tab = Window:MakeTab({
-        Name = "Local Player",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-        local Tab = Window:MakeTab({
-        Name = "Shop",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
+-- tsuo hub deob...
+
+        local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+
+local Window = Fluent:CreateWindow({
+    Title = "Fluent " .. Fluent.Version,
+    SubTitle = "by dawid",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(580, 460),
+    Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
+    Theme = "Dark",
+    MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
+})
+                ------- Specials Mobs --------
+        Elites = {
+            "Deandre [Lv. 1750]",
+            "Urban [Lv. 1750]",
+            "Diablo [Lv. 1750]"
+        }
+        BoneMobs = {
+            "Reborn Skeleton [Lv. 1975]",
+            "Living Zombie [Lv. 2000]",
+            "Demonic Soul [Lv. 2025]",
+            "Posessed Mummy [Lv. 2050]"
+        }
+        BossFarmEx = {}
+        for i, v in pairs(game.Workspace.Enemies:GetChildren()) do
+            if string.find(v.Name, "Raid Boss") then
+                table.insert(BossFarmEx, v.Name)
+            end
+        end
+        for i, v in pairs(game.ReplicatedStorage:GetChildren()) do
+            if string.find(v.Name, "Raid Boss") then
+                table.insert(BossFarmEx, v.Name)
+            end
+        end
+        ------------------
+        RandomText = {
+            "The Simulation is who we really are?",
+            "It fantasy",
+            "Live for your life",
+            "Cause i never surrender",
+            "their reflection in your eyes",
+            "make me wanna sacrifice",
+            "Wont end it, this fantasy",
+            "Love it",
+            "I'll waitting, waitting",
+            "and if ever feel lonely, come see me",
+            "Cause i Need someone to belive in love"
+        }
+        randomtexte = RandomText[math.random(1, #RandomText)]
+        ------- Joining Team ---- 
+        function Join(v2) 
+            v2 = tostring(v2) or "Pirates"
+            v2 = string.find(v2,"Marine") and "Marines" or "Pirates"
+            for i, v in pairs(
+                getconnections(
+                    game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container[v2].Frame.TextButton.Activated
+                )
+            ) do
+                v.Function()
+            end
+        end
+        repeat
+            pcall(
+                function()
+                    task.wait()
+                    if game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("Main"):FindFirstChild("ChooseTeam") then 
+                        Config["Team"] = Config["Team"] or "Pirates"
+                        Join(Config["Team"])
+                    end
+                end
+            )
+        until game.Players.LocalPlayer.Team ~= nil
+
+        local Window =
+            Fluent:CreateWindow(
+            {
+                Title = "Tsuo Hub Update 20",
+                SubTitle = "Dev By VMH09",
+                TabWidth = 160,
+                Size = UDim2.fromOffset(Size11, Size22),
+                Acrylic = false, -- The blur may be detectable, setting this to false disables blur entirely
+                Theme = "Darker",
+                MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
+            }
+        )
+        function Window:NewTab(mmb)
+            local domain
+            newmm = Window:AddTab(mmb)
+            domain = newmm
+            function newmm:NewParagraph(cf)
+                local paragraphnew
+                newTitle = cf.Title or "Tsuo Hub"
+                newContent = cf.Content or "MMB"
+                paragraphnew =
+                    domain:AddParagraph(
+                    {
+                        Content = newContent,
+                        Title = newTitle
+                    }
+                )
+                function paragraphnew:Set(cf2)
+                    newTitle = cf2.Title or "Tsuo Hub"
+                    newContent = cf2.Content or "MMB"
+                    paragraphnew:SetTitle(newTitle)
+                    paragraphnew:SetDesc(newContent)
+                end
+                return paragraphnew
+            end
+            function newmm:NewButton(cf)
+                cfreal = {}
+                cfreal.Title = cf.Title or "Button"
+                cfreal.Description = cf.Description or ""
+                cfreal.Callback = cf.Callback or function()
+                    end
+                for i, v in pairs(cfreal) do
+                    cf[i] = v
+                end
+        
+                cfreal.V = domain:AddButton(cf)
+                return cfreal.V
+            end
+            function newmm:NewDialog(cf)
+                cfreal = {}
+                cfreal.Title = cf.Title or ""
+                cfreal.Content = cf.Content or ""
+                cfreal.Buttons = cf.Buttons or {}
+                for i, v in pairs(cfreal) do
+                    cf[i] = v
+                end
+                return Window:Dialog(cf)
+            end
+            function newmm:NewToggle(sv, cf)
+                cfreal = {}
+                cfreal.Title = cf.Title or "Toggle"
+                cfreal.Description = cf.Description or ""
+                cfreal.Default = Config[sv]
+                cfreal.Callback = cf.Callback or function()
+                    end
+                function cfreal:Set(bo)
+                    Options[sv]:SetValue(bo)
+                end
+                for i, v in pairs(cfreal) do
+                    cf[i] = v
+                end
+                cf.Callback = function(v)
+                    cfreal.Callback(v)
+                    Save()
+                end
+                fake = domain:AddToggle(sv, cf)
+                for i, v in pairs(fake) do
+                    if not cfreal[i] then
+                        cfreal[i] = v
+                    else
+                        table.insert(cfreal, v)
+                    end
+                end
+                return fake
+            end
+            function newmm:NewSlider(scriptitle, cf)
+                DFConfig = {
+                    Title = "Slider",
+                    Description = "",
+                    Min = 5,
+                    Max = 150,
+                    Default = (5 + 150) / 2,
+                    Rounding = 1,
+                    Callback = function(v)
+                    end
+                }
+                if not Config[scriptitle] then 
+                    Config[scriptitle] = cf.Min 
+                end
+                cf.Default = cf.Default or Config[scriptitle]
+                DFConfig.Callback = cf.Callback or function(v)
+                end
+                for i, v in pairs(DFConfig) do
+                    if not cf[i] then
+                        cf[i] = v
+                    end
+                end  
+                cf.Callback = function(v)
+                    DFConfig.Callback(v)
+                    Save()
+                end
+                DFSCRIPT = domain:AddSlider(scriptitle, cf)
+                function DFSCRIPT:Set(v)
+                    DFSCRIPT:SetValue(v)
+                end
+                return DFSCRIPT
+            end
+            function newmm:NewDropdown(title, cf)
+                DefaultConfigDropdown = {
+                    Title = "Drodown",
+                    Values = {"MMB", "TSUO"},
+                    Multi = false,
+                    Default = nil
+                }
+                if cf.Multi then
+                    if not Config[title] then
+                        Config[title] = {}
+                        for i, v in pairs(cf.Values) do
+                            Config[title][v] = false
+                        end
+                    end
+                end
+                cf.Default = Config[title]
+                local dropdown
+                local dropdown = domain:AddDropdown(title, cf)
+                dropdown:OnChanged(
+                    function(cv)
+                        pcall(
+                            function(cv)
+                                Save()
+                            end
+                        )
+                    end
+                )
+                function dropdown:Set(v)
+                    dropdown:SetValue(v)
+                end
+                return dropdown
+            end
+            function newmm:NewColorPicker(title, cf)
+                DFConfig = {
+                    Title = "Colorpicker",
+                    Default = Color3.fromRGB(96, 205, 255)
+                }
+                for i, v in pairs(DefaultConfig) do
+                    if not cf[i] then
+                        cf[i] = v
+                    end
+                end
+                cf.Callback = function(v)
+                    DefaultConfig.Callback(v)
+                    Save()
+                end
+                cf.Defualt = Config[title] or Color3.fromRGB(96, 205, 255)
+                cl = domain:AddColorpicker(title, cf)
+                function cl:Set(v)
+                    cl:SetValueRGB(v)
+                end
+                return cl
+            end
+            function newmm:NewKeyBind(title, cf)
+                DFConfig = {
+                    Title = "gg",
+                    Mode = "Toggle",
+                    Default = "LeftControl"
+                }
+                for i, v in pairs(DFConfig) do
+                    if not cf[i] then
+                        cf[i] = v
+                    end
+                end
+                cf.Callback = function(v)
+                    DFConfig.Callback(v)
+                    Save()
+                end
+                DFConfig.Defualt = Config[title]
+                kb = domain:AddKeybind(title, cf)
+                return kb
+            end
+            function newmm:NewInput(title, cf)
+                DefaultConfig = {
+                    Title = "Input",
+                    Default = "",
+                    Placeholder = "Paste Here",
+                    Numeric = false, -- Only allows numbers
+                    Finished = true, -- Only calls callback when you press enter
+                    Callback = function(Value)
+                    end
+                }
+                DefaultConfig.Defualt = Config[title]
+                for i, v in pairs(DefaultConfig) do
+                    if not cf[i] then
+                        cf[i] = v
+                    end
+                end
+                ip = domain:AddInput(title, cf)
+                return ip
+            end
+            return newmm
+        end
+        function getRandomIcon()
+            idicon = math.random(1, 555)
+            idcount = 0
+            for i, v in pairs(Icons) do
+                if v then
+                    if idcount == idicon then
+                        return v
+                    else
+                        idcount = idcount + 1
+                    end
+                end
+            end
+            return ""
+        end
+        DefaultTab = Window:NewTab({Title = "Default", Icon = getRandomIcon()})
+        FarmTab = Window:NewTab({Title = "Farm", Icon = getRandomIcon()}) 
+        ServerTab = Window:NewTab({Title = "Server & Info", Icon = getRandomIcon()})
+        V4Tab = Window:NewTab({Title = "Race", Icon = getRandomIcon()})
+        PlRTAB = Window:NewTab({Title = "Local Player", Icon = getRandomIcon()}) 
+        WeaponTab = Window:NewTab({Title = "Weapon", Icon = getRandomIcon()}) 
+        ShopTab = Window:NewTab({Title = "Shop",Icon = getRandomIcon()})
         RaidTab = Window:NewTab({Title = "Fruits & Raid", Icon = getRandomIcon()})
         if not Sea1 then 
-            local Tab = Window:MakeTab({
-        Name = "Sea Beast",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
+            SeaBeastTab = Window:NewTab({Title = "Sea Beast",Icon = getRandomIcon()})
         end 
-        local Tab = Window:MakeTab({
-        Name = "Setting",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-       OrionLib:MakeNotification({
-        Name = "Tsuo Hub!",
-        Content = "Notification content... what will it say??",
-        Image = "rbxassetid://4483345998",
-        Time = 5
+        SettingTab = Window:NewTab({Title = "Setting",Icon = getRandomIcon()})
+        function CreateUiNotify(cf)
+            newtitle = cf.Title or "Tsuo Hub"
+            newcontent = cf.Content or "Nothing"
+            newduration = cf.Duration or 10
+            newsubcontent = cf.SubContent or ""
+            Fluent:Notify(
                 {
                     Title = newtitle,
                     Content = newcontent,
@@ -8494,7 +8766,196 @@ local Window = OrionLib:MakeWindow({Name = "Seraphim", HidePremium = false, Save
         end
         ------ Attack Functions ---------
         
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/memaybeohub/Function-Scripts/main/FastAttackLoader.lua"))()
+        MainFarm:AddDropdown({
+  Name = "Farm Tool",
+  Options = {"Melee", "Sword", "Blox Fruit"},
+  Default = {"Melee"},
+  Flag = "Main/FarmTool",
+  Callback = function(Value)
+    getgenv().FarmTool = Value
+  end
+})
+
+if PlayerLevel.Value >= MaxLavel and Sea3 then
+  MainFarm:AddToggle({
+    Name = "Start Multi Farm < BETA >",
+    Callback = function(Value)
+      table.foreach(AFKOptions, function(_,Val)
+        task.spawn(function()
+          Val:Set(Value)
+        end)
+      end)
+    end
+  })
+end
+
+MainFarm:AddSection({"Farm"})
+
+MainFarm:AddToggle({"Auto Farm Level", false, function(Value)
+  getgenv().AutoFarm_Level = Value;AutoFarm_Level()
+end, Description = "Lavel Farm"})
+
+MainFarm:AddToggle({"Auto Farm Nearest", false, function(Value)
+  getgenv().AutoFarmNearest = Value;AutoFarmNearest()
+end})
+
+if Sea3 then
+  table.insert(AFKOptions, MainFarm:AddToggle({"Auto Pirates Sea", false, function(Value)
+    getgenv().AutoPiratesSea = Value;AutoPiratesSea()
+  end}))
+elseif Sea2 then
+  MainFarm:AddToggle({"Auto Factory", false, function(Value)
+    getgenv().AutoFactory = Value;AutoFactory()
+  end})
+end
+
+--[[MainFarm:AddSection({"Christmas"})
+
+local TimeLabel = MainFarm:AddLabel({"Text", "Time for next gift : nil"})
+
+task.spawn(function()
+  local Counter = workspace:WaitForChild("Countdown", 9e9)
+  local SurfaceGui = Counter:WaitForChild("SurfaceGui", 9e9)
+  local TextLabel = SurfaceGui:WaitForChild("TextLabel", 9e9)
+  
+  while task.wait() do
+    TimeLabel:SetTitle("Time to Next gift : " .. TextLabel.Text)
+    
+    if TextLabel.Text ~= "STARTING!" then
+      local TimerL, Timer = TextLabel.Text:split(":"), 0
+      if tonumber(TimerL[2]) >= 1 then
+        Timer = tonumber(TimerL[2]) * 60
+      end
+      Timer = Timer + tonumber(TimerL[3])
+      
+      getgenv().TimeToGift = Timer
+    else
+      getgenv().TimeToGift = 0
+    end
+  end
+end)
+
+if PlayerLevel.Value >= MaxLavel and Sea3 then
+  MainFarm:AddToggle({"Auto Farm Candy", false, function(Value)
+    getgenv().AutoCandy = Value
+    task.spawn(function()
+      local Enemies1 = workspace:WaitForChild("Enemies", 9e9)
+      local Enemies2 = ReplicatedStorage
+      
+      local function GetProxyNPC()
+        local Distance = math.huge
+        local NPC = nil
+        local plrChar = Player and Player.Character and Player.Character.PrimaryPart
+        
+        for _,npc in pairs(Enemies1:GetChildren()) do
+          if npc.Name == "Isle Champion" or npc.Name == "Sun-kissed Warrior" or npc.Name == "Island Boy" or npc.Name == "Isle Outlaw" then
+            if plrChar and npc and npc:FindFirstChild("HumanoidRootPart") and (plrChar.Position - npc.HumanoidRootPart.Position).Magnitude <= Distance then
+              Distance = (plrChar.Position - npc.HumanoidRootPart.Position).Magnitude
+              NPC = npc
+            end
+          end
+        end
+        for _,npc in pairs(Enemies2:GetChildren()) do
+          if npc.Name == "Isle Champion" or npc.Name == "Sun-kissed Warrior" or npc.Name == "Island Boy" or npc.Name == "Isle Outlaw" then
+            if plrChar and npc and npc:FindFirstChild("HumanoidRootPart") and (plrChar.Position - npc.HumanoidRootPart.Position).Magnitude <= Distance then
+              Distance = (plrChar.Position - npc.HumanoidRootPart.Position).Magnitude
+              NPC = npc
+            end
+          end
+        end
+        return NPC
+      end
+      
+      while getgenv().AutoCandy do task.wait()
+        if Configure("Candy") then
+        else
+          local Enemie = GetProxyNPC()
+          if Enemie then
+            PlayerTP(Enemie.HumanoidRootPart.CFrame + getgenv().FarmPos)
+            pcall(function()PlayerClick()ActiveHaki()EquipTool()BringNPC(Enemie, true)end)
+          end
+        end
+      end
+    end)
+  end})
+end
+
+MainFarm:AddToggle({"Auto Gift", false, function(Value)
+  getgenv().AutoGift = Value
+  task.spawn(function()
+    local function GetGift()
+      for _,part in pairs(workspace["_WorldOrigin"]:GetChildren()) do
+        if part.Name == "Present" then
+          if part:FindFirstChild("Box") and part.Box:FindFirstChild("ProximityPrompt") then
+            return part, part.Box.ProximityPrompt
+          end
+        end
+      end
+    end
+    
+    while getgenv().AutoGift do task.wait()
+      local Gift, Prompt = GetGift()
+      
+      if Gift and Gift.PrimaryPart then
+        PlayerTP(Gift.PrimaryPart.CFrame)
+        if Prompt then
+          fireproximityprompt(Prompt)
+        end
+      elseif getgenv().TimeToGift < 90 then
+        if Sea3 then
+          PlayerTP(CFrame.new(-1076, 14, -14437))
+        elseif Sea2 then
+          PlayerTP(CFrame.new(-5219, 15, 1532))
+        elseif Sea1 then
+          PlayerTP(CFrame.new(1007, 15, -3805))
+        end
+      end
+    end
+  end)
+end})]]
+
+if Sea3 then
+  MainFarm:AddSection({"Bone"})
+  
+  table.insert(AFKOptions, MainFarm:AddToggle({
+    Name = "Auto Farm Bone",
+    Callback = function(Value)
+      getgenv().AutoFarmBone = Value
+      AutoFarmBone()
+    end
+  }))
+  
+  table.insert(AFKOptions, MainFarm:AddToggle({
+    Name = "Auto Hallow Scythe",
+    Callback = function(Value)
+      getgenv().AutoSoulReaper = Value
+      AutoSoulReaper()
+    end
+  }))
+  
+  table.insert(AFKOptions, MainFarm:AddToggle({
+    Name = "Auto Trade Bone",
+    Callback = function(Value)
+      getgenv().AutoTradeBone = Value
+      while getgenv().AutoTradeBone do task.wait()
+        FireRemote("Bones", "Buy", 1, 1)
+      end
+    end
+  }))
+  
+elseif Sea2 then
+  
+  MainFarm:AddSection({"Ectoplasm"})
+  
+  MainFarm:AddToggle({
+    Name = "Auto Farm Ectoplasm",
+    Callback = function(Value)
+      getgenv().AutoFarmEctoplasm = Value
+      AutoFarmEctoplasm()
+    end
+  })
+end
+
         -- Final Load --
 
 end)
