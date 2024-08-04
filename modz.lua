@@ -1,10 +1,11 @@
-local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+-- tsuo hub deob...
 
+        local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
-    Title = "Fluent " .. Fluent.Version,
+    Title = "Seraphim" .. Fluent.Version,
     SubTitle = "by dawid",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
@@ -12,73 +13,7 @@ local Window = Fluent:CreateWindow({
     Theme = "Dark",
     MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
 })
-
-       --- Hub Values ---
-        Hub = {}
-        Hub.Name = "Tsuo Hub"
-        Hub.Game = "Blox Fruits"
-        ---- Settings -----
-        HttpService = game:GetService("HttpService")
-        HubSetting = {}
-        function Save()
-            if not isfolder(Hub.Name) then
-                makefolder(Hub.Name)
-            end
-            if not isfile(Hub.Name .. "/" .. game.Players.LocalPlayer.Name .. "-" .. Hub.Game .. ".json") then
-                writefile(
-                    Hub.Name .. "/" .. game.Players.LocalPlayer.Name .. "-" .. Hub.Game .. ".json",
-                    HttpService:JSONEncode({})
-                )
-            end
-            for i, v in pairs(Fluent.Options) do
-                HubSetting[i] = v.Value
-            end
-            writefile(
-                Hub.Name .. "/" .. game.Players.LocalPlayer.Name .. "-" .. Hub.Game .. ".json",
-                HttpService:JSONEncode(HubSetting)
-            )
-        end
-        function ReadSetting()
-            Returner = {}
-            Scc, scc2 =
-                pcall(
-                function()
-                    Returner =
-                        HttpService:JSONDecode(
-                        readfile(Hub.Name .. "/" .. game.Players.LocalPlayer.Name .. "-" .. Hub.Game .. ".json")
-                    )
-                end
-            )
-            if
-                not Scc or not isfolder(Hub.Name) or
-                    not isfile(Hub.Name .. "/" .. game.Players.LocalPlayer.Name .. "-" .. Hub.Game .. ".json")
-             then
-                Save()
-            end
-            Scc, scc2 =
-                pcall(
-                function()
-                    Returner =
-                        HttpService:JSONDecode(
-                        readfile(Hub.Name .. "/" .. game.Players.LocalPlayer.Name .. "-" .. Hub.Game .. ".json")
-                    )
-                end
-            )
-            return Returner
-        end
-        Config = ReadSetting()
-        spawn(
-            function()
-                while task.wait() do
-                    repeat
-                        task.wait()
-                    until LoadedUiHub
-                    Save()
-                    Config = ReadSetting()
-                end
-            end
-        )
-        ------- Specials Mobs --------
+                ------- Specials Mobs --------
         Elites = {
             "Deandre [Lv. 1750]",
             "Urban [Lv. 1750]",
@@ -100,354 +35,7 @@ local Window = Fluent:CreateWindow({
             if string.find(v.Name, "Raid Boss") then
                 table.insert(BossFarmEx, v.Name)
             end
-        end
-        ------------------
-        RandomText = {
-            "The Simulation is who we really are?",
-            "It fantasy",
-            "Live for your life",
-            "Cause i never surrender",
-            "their reflection in your eyes",
-            "make me wanna sacrifice",
-            "Wont end it, this fantasy",
-            "Love it",
-            "I'll waitting, waitting",
-            "and if ever feel lonely, come see me",
-            "Cause i Need someone to belive in love"
-        }
-        randomtexte = RandomText[math.random(1, #RandomText)]
-        ------- Joining Team ---- 
-        function Join(v2) 
-            v2 = tostring(v2) or "Pirates"
-            v2 = string.find(v2,"Marine") and "Marines" or "Pirates"
-            for i, v in pairs(
-                getconnections(
-                    game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container[v2].Frame.TextButton.Activated
-                )
-            ) do
-                v.Function()
-            end
-        end
-        repeat
-            pcall(
-                function()
-                    task.wait()
-                    if game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("Main"):FindFirstChild("ChooseTeam") then 
-                        Config["Team"] = Config["Team"] or "Pirates"
-                        Join(Config["Team"])
-                    end
-                end
-            )
-        until game.Players.LocalPlayer.Team ~= nil
-        --- Creating Ui ---
-        
-        local Icons = {}
-        local Success, Response =
-            pcall(
-            function()
-                Icons =
-                    HttpService:JSONDecode(
-                    game:HttpGetAsync(
-                        "https://raw.githubusercontent.com/evoincorp/lucideblox/master/src/modules/util/icons.json"
-                    )
-                ).icons
-            end
-        )
-        local MMBStatus = ""
-        if not Success then
-            game.Players.LocalPlayer:Kick("Can not get icons....")
-        end  
-        local CheckMobile = function()
-            if
-                game:GetService("UserInputService").TouchEnabled
-             then
-                return true 
-            end
-        end 
-        IsMobile = CheckMobile()
-        Size11,Size22 = 600,460
-        if IsMobile then 
-            Size11,Size22 = 500,290
-            local ClickButton = Instance.new("ScreenGui")
-            local MainFrame = Instance.new("Frame")
-            local ImageLabel = Instance.new("ImageLabel")
-            local TextButton = Instance.new("TextButton") 
-            local UICorner = Instance.new("UICorner") 
-            local UICorner_2 = Instance.new("UICorner")
-            if game.CoreGui:FindFirstChild("ClickButton") then 
-                game.CoreGui:FindFirstChild("ClickButton"):Destroy()
-            end
-            ClickButton.Name = "ClickButton"
-            ClickButton.Parent = game.CoreGui
-            ClickButton.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
             
-            MainFrame.Name = "MainFrame"
-            MainFrame.Parent = ClickButton
-            MainFrame.Active = true
-            MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-            MainFrame.BackgroundColor3 = Color3.new(1, 1, 1)
-            MainFrame.BorderColor3 = Color3.new(0, 0, 0)
-            MainFrame.BorderSizePixel = 0
-            MainFrame.Transparency = 1
-            MainFrame.Position = UDim2.new(0.187441245, 0, 0.476932675, 0)
-            MainFrame.Size = UDim2.new(0, 45, 0, 45)
-            
-            UICorner.CornerRadius = UDim.new(0, 100)
-            UICorner.Parent = MainFrame
-            
-            UICorner_2.CornerRadius = UDim.new(0, 100)
-            UICorner_2.Parent = ImageLabel
-            
-            ImageLabel.Parent = MainFrame
-            ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-            ImageLabel.BackgroundColor3 = Color3.new(0, 0, 0)
-            ImageLabel.BorderColor3 = Color3.new(0, 0, 0)
-            ImageLabel.BorderSizePixel = 0
-            ImageLabel.Position = UDim2.new(0.48888889, 0, 0.48888889, 0)
-            ImageLabel.Size = UDim2.new(0, 45, 0, 45)
-            ImageLabel.Image = "rbxassetid://15241946029"
-            
-            TextButton.Parent = MainFrame
-            TextButton.BackgroundColor3 = Color3.new(1, 1, 1)
-            TextButton.BackgroundTransparency = 1
-            TextButton.BorderColor3 = Color3.new(0, 0, 0)
-            TextButton.BorderSizePixel = 0
-            TextButton.Position = UDim2.new(3.3908421e-07, 0, 0, 0)
-            TextButton.Size = UDim2.new(0, 45, 0, 45)
-            TextButton.AutoButtonColor = false
-            TextButton.Font = Enum.Font.SourceSans
-            TextButton.Text = ""
-            TextButton.TextColor3 = Color3.new(255, 255, 255)
-            TextButton.TextSize = 15
-            TextButton.MouseButton1Click:Connect(function()
-                game:GetService("VirtualInputManager"):SendKeyEvent(true,"LeftControl",false,game)
-                game:GetService("VirtualInputManager"):SendKeyEvent(false,"LeftControl",false,game)
-            end)
-        end 
-        local Window =
-            Fluent:CreateWindow(
-            {
-                Title = "Tsuo Hub Update 20",
-                SubTitle = "Dev By VMH09",
-                TabWidth = 160,
-                Size = UDim2.fromOffset(Size11, Size22),
-                Acrylic = false, -- The blur may be detectable, setting this to false disables blur entirely
-                Theme = "Darker",
-                MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
-            }
-        )
-        function Window:NewTab(mmb)
-            local domain
-            newmm = Window:AddTab(mmb)
-            domain = newmm
-            function newmm:NewParagraph(cf)
-                local paragraphnew
-                newTitle = cf.Title or "Tsuo Hub"
-                newContent = cf.Content or "MMB"
-                paragraphnew =
-                    domain:AddParagraph(
-                    {
-                        Content = newContent,
-                        Title = newTitle
-                    }
-                )
-                function paragraphnew:Set(cf2)
-                    newTitle = cf2.Title or "Tsuo Hub"
-                    newContent = cf2.Content or "MMB"
-                    paragraphnew:SetTitle(newTitle)
-                    paragraphnew:SetDesc(newContent)
-                end
-                return paragraphnew
-            end
-            function newmm:NewButton(cf)
-                cfreal = {}
-                cfreal.Title = cf.Title or "Button"
-                cfreal.Description = cf.Description or ""
-                cfreal.Callback = cf.Callback or function()
-                    end
-                for i, v in pairs(cfreal) do
-                    cf[i] = v
-                end
-        
-                cfreal.V = domain:AddButton(cf)
-                return cfreal.V
-            end
-            function newmm:NewDialog(cf)
-                cfreal = {}
-                cfreal.Title = cf.Title or ""
-                cfreal.Content = cf.Content or ""
-                cfreal.Buttons = cf.Buttons or {}
-                for i, v in pairs(cfreal) do
-                    cf[i] = v
-                end
-                return Window:Dialog(cf)
-            end
-            function newmm:NewToggle(sv, cf)
-                cfreal = {}
-                cfreal.Title = cf.Title or "Toggle"
-                cfreal.Description = cf.Description or ""
-                cfreal.Default = Config[sv]
-                cfreal.Callback = cf.Callback or function()
-                    end
-                function cfreal:Set(bo)
-                    Options[sv]:SetValue(bo)
-                end
-                for i, v in pairs(cfreal) do
-                    cf[i] = v
-                end
-                cf.Callback = function(v)
-                    cfreal.Callback(v)
-                    Save()
-                end
-                fake = domain:AddToggle(sv, cf)
-                for i, v in pairs(fake) do
-                    if not cfreal[i] then
-                        cfreal[i] = v
-                    else
-                        table.insert(cfreal, v)
-                    end
-                end
-                return fake
-            end
-            function newmm:NewSlider(scriptitle, cf)
-                DFConfig = {
-                    Title = "Slider",
-                    Description = "",
-                    Min = 5,
-                    Max = 150,
-                    Default = (5 + 150) / 2,
-                    Rounding = 1,
-                    Callback = function(v)
-                    end
-                }
-                if not Config[scriptitle] then 
-                    Config[scriptitle] = cf.Min 
-                end
-                cf.Default = cf.Default or Config[scriptitle]
-                DFConfig.Callback = cf.Callback or function(v)
-                end
-                for i, v in pairs(DFConfig) do
-                    if not cf[i] then
-                        cf[i] = v
-                    end
-                end  
-                cf.Callback = function(v)
-                    DFConfig.Callback(v)
-                    Save()
-                end
-                DFSCRIPT = domain:AddSlider(scriptitle, cf)
-                function DFSCRIPT:Set(v)
-                    DFSCRIPT:SetValue(v)
-                end
-                return DFSCRIPT
-            end
-            function newmm:NewDropdown(title, cf)
-                DefaultConfigDropdown = {
-                    Title = "Drodown",
-                    Values = {"MMB", "TSUO"},
-                    Multi = false,
-                    Default = nil
-                }
-                if cf.Multi then
-                    if not Config[title] then
-                        Config[title] = {}
-                        for i, v in pairs(cf.Values) do
-                            Config[title][v] = false
-                        end
-                    end
-                end
-                cf.Default = Config[title]
-                local dropdown
-                local dropdown = domain:AddDropdown(title, cf)
-                dropdown:OnChanged(
-                    function(cv)
-                        pcall(
-                            function(cv)
-                                Save()
-                            end
-                        )
-                    end
-                )
-                function dropdown:Set(v)
-                    dropdown:SetValue(v)
-                end
-                return dropdown
-            end
-            function newmm:NewColorPicker(title, cf)
-                DFConfig = {
-                    Title = "Colorpicker",
-                    Default = Color3.fromRGB(96, 205, 255)
-                }
-                for i, v in pairs(DefaultConfig) do
-                    if not cf[i] then
-                        cf[i] = v
-                    end
-                end
-                cf.Callback = function(v)
-                    DefaultConfig.Callback(v)
-                    Save()
-                end
-                cf.Defualt = Config[title] or Color3.fromRGB(96, 205, 255)
-                cl = domain:AddColorpicker(title, cf)
-                function cl:Set(v)
-                    cl:SetValueRGB(v)
-                end
-                return cl
-            end
-            function newmm:NewKeyBind(title, cf)
-                DFConfig = {
-                    Title = "gg",
-                    Mode = "Toggle",
-                    Default = "LeftControl"
-                }
-                for i, v in pairs(DFConfig) do
-                    if not cf[i] then
-                        cf[i] = v
-                    end
-                end
-                cf.Callback = function(v)
-                    DFConfig.Callback(v)
-                    Save()
-                end
-                DFConfig.Defualt = Config[title]
-                kb = domain:AddKeybind(title, cf)
-                return kb
-            end
-            function newmm:NewInput(title, cf)
-                DefaultConfig = {
-                    Title = "Input",
-                    Default = "",
-                    Placeholder = "Paste Here",
-                    Numeric = false, -- Only allows numbers
-                    Finished = true, -- Only calls callback when you press enter
-                    Callback = function(Value)
-                    end
-                }
-                DefaultConfig.Defualt = Config[title]
-                for i, v in pairs(DefaultConfig) do
-                    if not cf[i] then
-                        cf[i] = v
-                    end
-                end
-                ip = domain:AddInput(title, cf)
-                return ip
-            end
-            return newmm
-        end
-        function getRandomIcon()
-            idicon = math.random(1, 555)
-            idcount = 0
-            for i, v in pairs(Icons) do
-                if v then
-                    if idcount == idicon then
-                        return v
-                    else
-                        idcount = idcount + 1
-                    end
-                end
-            end
-            return ""
-        end
         DefaultTab = Window:NewTab({Title = "Default", Icon = getRandomIcon()})
         FarmTab = Window:NewTab({Title = "Farm", Icon = getRandomIcon()}) 
         ServerTab = Window:NewTab({Title = "Server & Info", Icon = getRandomIcon()})
@@ -502,4 +90,305 @@ local Window = Fluent:CreateWindow({
                                 )
                                 firetouchinterest(
                                     game.Players.LocalPlayer.Character.HumanoidRootPart,
-                                    game:GetService("Workspace").Map.Darkb
+                                    game:GetService("Workspace").Map.DarkbeardArena.Summoner.Detection,
+                                    0
+                                )
+                                firetouchinterest(
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart,
+                                    game:GetService("Workspace").Map.DarkbeardArena.Summoner.Detection,
+                                    1
+                                )
+                            end
+                        )
+                    else
+                        Tweento(game:GetService("Workspace").Map.DarkbeardArena.Summoner.Detection.CFrame)
+                    end
+                elseif collectchest and Sea2 then 
+                    TweentoNearestChest()
+                end
+            end
+        end 
+        function CountZombie(x)
+            local Counter = 0
+            for i, v in pairs(game.workspace.Enemies:GetChildren()) do
+                if RemoveLevelTitle(v.Name) == "Living Zombie" and v.Humanoid.Health > 0 then
+                    if
+                        not x or
+                            (v.HumanoidRootPart.Position - Vector3.new(-10171.7607421875, 138.62667846679688, 6008.0654296875)).magnitude <
+                                30
+                     then
+                        Counter = Counter + 1
+                    end
+                end
+            end
+            return Counter
+        end 
+        function CountZombieInWorkspace()
+            Counter = 0
+            for i, v in pairs(game.workspace.Enemies:GetChildren()) do
+                if RemoveLevelTitle(v.Name) == "Living Zombie" and v.Humanoid.Health > 0 then
+                    Counter = Counter + 1
+                end
+            end
+            return Counter
+        end
+        function BringMobSoulGuitar()
+            pcall(
+                function()
+                    for i, v in pairs(game.workspace.Enemies:GetChildren()) do
+                        if
+                        RemoveLevelTitle(v.Name) == "Living Zombie" and v:FindFirstChild("Humanoid") and
+                                v:FindFirstChild("HumanoidRootPart")
+                         then
+                            if
+                                isnetworkowner(v.HumanoidRootPart) and
+                                    GetDistance(
+                                        v.HumanoidRootPart,
+                                        CFrame.new(-10171.7607421875, 138.62667846679688, 6008.0654296875)
+                                    ) > 5
+                             then 
+                                TweenObject(CFrame.new(-10171.7607421875, 138.62667846679688, 6008.0654296875),v.HumanoidRootPart,1500)
+                                SizePart(
+                                    v,
+                                    CFrame.new(-10171.7607421875, 138.62667846679688, 6008.0654296875),
+                                    "Living Zombie [Lv. 2000]"
+                                )
+                            end
+                        end
+                    end
+                end
+            )
+        end 
+        function CheckAnyPlayersInCFrame(gggggggggggggg, g6)
+            min3 = g6
+            local min5
+            for i, v in pairs(game.Players:GetChildren()) do
+                pcall(
+                    function()
+                        if
+                            v.Name ~= game.Players.LocalPlayer.Name and
+                                GetDistance(v.Character.HumanoidRootPart, gggggggggggggg) < min3
+                         then
+                            min3 = GetDistance(v.Character.HumanoidRootPart, gggggggggggggg)
+                        end
+                    end
+                )
+            end
+            for i, v in pairs(game.Players:GetChildren()) do
+                pcall(
+                    function()
+                        if
+                            v.Name ~= game.Players.LocalPlayer.Name and
+                                GetDistance(v.Character.HumanoidRootPart, gggggggggggggg) <= min3
+                         then
+                            min5 = v
+                        end
+                    end
+                )
+            end
+            return min5
+        end
+        function CheckQuestSoulGuitar() 
+            if not (Sea2 or Sea3) or CheckItem("Soul Guitar") or LocalPlayerLevelValue < 2300 then return end  
+            MaterialReq = {
+                Ectoplasm = 250,
+                Bones = 500,
+                ["Dark Fragment"] = 1,
+            }
+            for i,v in pairs(MaterialReq) do 
+                MaterialRequired[i] = CheckMaterialCount(i) >= v 
+            end 
+            Returner = {
+                Status = "None",
+                SeaRequired = 0,
+            } 
+            if not MaterialReq.Ectoplasm or not MaterialReq.Bones or not MaterialReq["Dark Fragment"] then 
+                if not MaterialReq.Ectoplasm then 
+                    Returner.Status = "Ectoplasm" 
+                    Returner.SeaRequired = 2
+                elseif not MaterialReq.Bones then 
+                    Returner.Status = "Bones"   
+                    Returner.SeaRequired = 3
+                elseif not MaterialReq["Dark Fragment"] then 
+                    Returner.Status = "Dark Fragment"
+                    Returner.SeaRequired = 2
+                end 
+                Config["SoulGuitarStatus"] = Returner
+                return Returner 
+            end  
+            pcall(function()
+                Config["SoulGuitarStatus"] = false
+            end)
+            if not game.ReplicatedStorage.Remotes["CommF_"]:InvokeServer("GuitarPuzzleProgress", "Check") then 
+                if (CheckMoon() == "Full Moon" and (game.Lighting.ClockTime > 15 or game.Lighting.ClockTime < 5)) or Config["HopOption"] then 
+                    return "Full Moon"
+                end 
+            else
+                if game.Players.LocalPlayer.PlayerGui.Main.Dialogue.Visible then
+                    game:GetService("VirtualUser"):Button1Down(Vector2.new(0, 0))
+                    game:GetService("VirtualUser"):Button1Down(Vector2.new(0, 0))
+                end 
+                SoulGuitarCheck = game.ReplicatedStorage.Remotes["CommF_"]:InvokeServer("GuitarPuzzleProgress", "Check")
+                if not SoulGuitarCheck.Swamp then
+                    return "Swamp" 
+                elseif not SoulGuitarCheck.Gravestones then 
+                    return "Grave Stone"
+                elseif not SoulGuitarCheck.Ghost then 
+                    return "Ghost"
+                elseif not SoulGuitarCheck.Trophies then 
+                    return "Trophie"
+                elseif not SoulGuitarCheck.Pipes then 
+                    return "Pipe"  
+                else
+                    game.ReplicatedStorage.Remotes["CommF_"]:InvokeServer("soulGuitarBuy", true)
+                    CreateUiNotify({
+                        Content = game.ReplicatedStorage.Remotes["CommF_"]:InvokeServer("soulGuitarBuy"),
+                        Duration = 30
+                    }) 
+                    pcall(function()
+                        Config["SoulGuitarStatus"] = false
+                    end)
+                    return
+                end
+            end
+        end 
+        tickNotify = 15
+        function DoSoulGuitarQuest(st) 
+            if not st then return end 
+            if not (Sea2 or Sea3) or CheckItem("Soul Guitar") or LocalPlayerLevelValue < 2300 then return end
+            if typeof(st) == "string" then  
+                TeleportWorld(3)
+                if st == "Full Moon" then 
+                    if
+                        Sea3 and game.Lighting.Sky.MoonTextureId == "http://www.roblox.com/asset/?id=9709149431" and
+                            (game.Lighting.ClockTime > 15 or game.Lighting.ClockTime < 5)
+                     then 
+                        if (game.Lighting.ClockTime > 18 or game.Lighting.ClockTime < 5) then 
+                            Tweento(CFrame.new(-8654.314453125, 140.9499053955078, 6167.5283203125)) 
+                            if GetDistance(CFrame.new(-8654.314453125, 140.9499053955078, 6167.5283203125)) < 10 then
+                                CheckRemote = game.ReplicatedStorage.Remotes["CommF_"]:InvokeServer("gravestoneEvent", 2) 
+                                if CheckRemote ~= true then return end 
+                                require(game.ReplicatedStorage.Effect).new("BlindCam"):replicate({
+                                    Color = Color3.new(0.03, 0.03, 0.03), 
+                                    Duration = 2, 
+                                    Fade = 0.25, 
+                                    ZIndex = -10
+                                });
+                                require(game.ReplicatedStorage.Util.Sound):Play("Thunder", workspace.CurrentCamera.CFrame.p);
+                                CreateUiNotify({
+                                    Content = game.ReplicatedStorage.Remotes["CommF_"]:InvokeServer("gravestoneEvent", 2, true),
+                                    Duration = 15
+                                })
+                            end 
+                        else
+                            if tick()-tickNotify > 14 then 
+                                tickNotify = tick() 
+                                CreateUiNotify({
+                                    Content = "Waitting full moon.",
+                                    Duration = 15,
+                                })
+                            end
+                        end
+                    end 
+                elseif st == "Swamp" then 
+                    if GetDistance(CFrame.new(-10171.7607421875, 138.62667846679688, 6008.0654296875)) > 100 then
+                        Tweento(CFrame.new(-10171.7607421875, 138.62667846679688, 6008.0654296875))
+                    else
+                        Tweento(CFrame.new(-10171.7607421875, 138.62667846679688, 6008.0654296875))
+                        if CheckAnyPlayersInCFrame(CFrame.new(-10171.7607421875, 138.62667846679688, 6008.0654296875), 1500) then
+                            CreateUiNotify({
+                                Content = "A Player Farming There, Cannot Do Puzzle.\nHop to new server."
+                            })
+                            HopServer(10,true)
+                        else
+                            if CountZombie() == 6 then
+                                for i, v in pairs(game.workspace.Enemies:GetChildren()) do
+                                    if
+                                        RemoveLevelTitle(v.Name) == "Living Zombie" and v:FindFirstChild("HumanoidRootPart") and
+                                            v:FindFirstChild("Humanoid") and
+                                            v.Humanoid.Health > 0
+                                     then
+                                        repeat
+                                            wait()
+                                            KillMob(v)
+                                        until v.Humanoid.Health <= 0 or not v.Parent
+                                    end
+                                end
+                            else
+                                if CountZombieInWorkspace() == 6 then
+                                    BringMobSoulGuitar()
+                                end
+                            end
+                        end
+                    end
+                elseif st == "Grave Stone" then 
+                    if GetDistance(CFrame.new(-8761.4765625, 142.10487365722656, 6086.07861328125)) > 50 then
+                        Tweento(CFrame.new(-8761.4765625, 142.10487365722656, 6086.07861328125))
+                    else
+                        local ClickSigns = {
+                            game.workspace.Map["Haunted Castle"].Placard1.Right.ClickDetector,
+                            game.workspace.Map["Haunted Castle"].Placard2.Right.ClickDetector,
+                            game.workspace.Map["Haunted Castle"].Placard3.Left.ClickDetector,
+                            game.workspace.Map["Haunted Castle"].Placard4.Right.ClickDetector,
+                            game.workspace.Map["Haunted Castle"].Placard5.Left.ClickDetector,
+                            game.workspace.Map["Haunted Castle"].Placard6.Left.ClickDetector,
+                            game.workspace.Map["Haunted Castle"].Placard7.Left.ClickDetector
+                        }
+                        for i, v in pairs(ClickSigns) do
+                            fireclickdetector(v)
+                        end
+                    end
+                elseif st == "Ghost" then 
+                    if GetDistance(CFrame.new(-9755.6591796875, 271.0661315917969, 6290.61474609375)) > 7 then
+                        Tweento(CFrame.new(-9755.6591796875, 271.0661315917969, 6290.61474609375))
+                        game.ReplicatedStorage.Remotes["CommF_"]:InvokeServer("GuitarPuzzleProgress", "Ghost")
+                    end  
+                elseif st == "Trophie" then 
+                    if GetDistance(CFrame.new(-9530.0126953125, 6.104853630065918, 6054.83349609375)) > 30 then
+                        Tweento(CFrame.new(-9530.0126953125, 6.104853630065918, 6054.83349609375))
+                    end
+                    local DepTraiv4 = game.workspace.Map["Haunted Castle"].Tablet
+                    for i, v in pairs(BlankTablets) do
+                        local x = DepTraiv4[v]
+                        if x.Line.Position.X ~= 0 then
+                            repeat
+                                wait()
+                                fireclickdetector(x.ClickDetector)
+                            until x.Line.Position.X == 0
+                        end
+                    end
+                    for i, v in pairs(Trophy) do
+                        local x = game.workspace.Map["Haunted Castle"].Trophies.Quest[v].Handle.CFrame
+                        x = tostring(x)
+                        x = x:split(", ")[4]
+                        local c = "180"
+                        if x == "1" or x == "-1" then
+                            c = "90"
+                        end
+                        if not string.find(tostring(DepTraiv4[i].Line.Rotation.Z), c) then
+                            repeat
+                                wait()
+                                fireclickdetector(DepTraiv4[i].ClickDetector)
+                            until string.find(tostring(DepTraiv4[i].Line.Rotation.Z), c)
+                            print(i, c)
+                        end
+                    end
+                elseif st == "Pipe" then
+                end 
+                for i, v in pairs(Pipes) do
+                    local x = game.workspace.Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model[i]
+                    if x.BrickColor.Name ~= v then
+                        repeat
+                            wait()
+                            fireclickdetector(x.ClickDetector)
+                        until x.BrickColor.Name == v
+                    end
+                end
+            elseif typeof(st) == "table" then 
+                RealInfo = st.Status
+                if RealInfo == "Ectoplasm" then 
+                    if not Sea2 then 
+                        TeleportWorld(2)
+                        repeat task.wait() TeleportWorld(2) task.wait(10) until Sea2      
+                    else
+     
